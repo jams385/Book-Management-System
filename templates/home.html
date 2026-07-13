@@ -1,0 +1,18 @@
+<html>
+    <body>
+        <form action="/" method="POST">
+
+            <!-- gets user input -->
+            <input type="text" name="title"> 
+            <input type="submit" value="Add">
+
+        </form>
+        <h1>Books</h1>
+
+        <!-- outputs the books using a jinja 'for' loop -->
+        {% for book in books %}
+            <p>{{book.title}}</p>
+        {% endfor %}
+
+    </body>
+</html>
