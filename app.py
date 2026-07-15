@@ -25,29 +25,40 @@ class Book(db.Model):
 @app.route("/", methods=["GET", "POST"])
 def home():
     if request.form:
-        book = Book(title=request.form.get("title"))
-        db.session.add(book)
-        db.session.commit()
+        try:
+            book = Book(title=request.form.get("title"))
+            db.session.add(book)
+            db.session.commit()
+        except Exception as e:
+            print("Failed to add book")
+            print(e)
 
     books = Book.query.all()
     return render_template("home.html", books=books)
 
 @app.route("/update", methods=["POST"])
 def update():
-    newtitle = request.form.get("newtitle")
-    oldtitle = request.form.get("oldtitle")
-    book = Book.query.filter_by(title=oldtitle).first()
-    book.title = newtitle
-    db.session.commit()
+    try:
+        newtitle = request.form.get("newtitle")
+        oldtitle = request.form.get("oldtitle")
+        book = Book.query.filter_by(title=oldtitle).first()
+        book.title = newtitle
+        db.session.commit()
+    except Exception as e:
+        print("Cannot update book title")
+    
     return redirect("/")
 
 @app.route("/delete", methods=["POST"])
 def delete():
-    title = request.form.get("title")
-    book = Book.query.filter_by(title=title).first()
+    try:
+        title = request.form.get("title")
+        book = Book.query.filter_by(title=title).first()
 
-    if book:
-        db.session.delete(book)
-        db.session.commit()
+        if book:
+            db.session.delete(book)
+            db.session.commit()
+    except Exception as e:
+        print("Cannot Delete Book")
 
     return redirect("/")

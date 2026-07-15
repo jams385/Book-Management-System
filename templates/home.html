@@ -8,23 +8,30 @@
 
         </form>
         <h1>Books</h1>
-
+        
+        <table>
         <!-- outputs the books using a jinja 'for' loop -->
         {% for book in books %}
-            <p>{{book.title}}</p>
+            <tr>
+                <td>
+                    {{book.title}}
+                </td>
+                <td>
 
-            <form method="POST" action="./update">
-                <input type="hidden" value="{{book.title}}" name="oldtitle">
-                <input type="text" name="newtitle">
-                <input type="submit" value="Update">
-            </form>
-
-            <form method="POST" action="./delete">
-                <input type="hidden" value="{{book.title}}" name="title">
-                <input type="submit" value="Delete">
-            </form>
-
+                    <form method="POST" action="./update">
+                        <input type="hidden" value="{{book.title}}" name="oldtitle">
+                        <input type="text" name="newtitle">
+                        <input type="submit" value="Update">
+                    </form>
+                </td>
+                <td>
+                    <form method="POST" action="./delete">
+                        <input type="hidden" value="{{book.title}}" name="title">
+                        <input type="submit" value="Delete">
+                    </form>
+                </td>
+            </tr>
         {% endfor %}
-
+        </table>
     </body>
 </html>
