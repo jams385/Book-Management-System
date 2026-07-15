@@ -3,35 +3,37 @@
         <form action="/" method="POST">
 
             <!-- gets user input -->
-            <input type="text" name="title"> 
-            <input type="submit" value="Add">
+            <input type="text" name="title" placeholder="Input Title" required> 
+            <input type="text" name="author" placeholder="Input Author's Name" required>
+            <input type="text" name="publisher" placeholder="Input Publisher's  Name" required>
+            <input type="text" name="publication_date" placeholder="Input Publication Date" required>
+            <button type="submit"> Submit </button>
 
         </form>
+
         <h1>Books</h1>
-        
-        <table>
         <!-- outputs the books using a jinja 'for' loop -->
         {% for book in books %}
-            <tr>
-                <td>
-                    {{book.title}}
-                </td>
-                <td>
+        <ul>
+                    <li>{{book.title}}
+                        <ul>
+                            <li>{{book.author}}</li>
+                            <li>{{book.publisher}}</li>
+                            <li>{{book.publication_date}}</li>
+                        </ul>
+                    </li>
+        </ul>
+            <form method="POST" action="./update">
+                <input type="hidden" value="{{book.title}}" name="oldtitle">
+                <input type="text" name="newtitle">
+                <input type="submit" value="Update">
+            </form>
 
-                    <form method="POST" action="./update">
-                        <input type="hidden" value="{{book.title}}" name="oldtitle">
-                        <input type="text" name="newtitle">
-                        <input type="submit" value="Update">
-                    </form>
-                </td>
-                <td>
-                    <form method="POST" action="./delete">
-                        <input type="hidden" value="{{book.title}}" name="title">
-                        <input type="submit" value="Delete">
-                    </form>
-                </td>
-            </tr>
+            <form method="POST" action="./delete">
+                <input type="hidden" value="{{book.title}}" name="title">
+                <input type="submit" value="Delete">
+            </form>
         {% endfor %}
-        </table>
+        
     </body>
 </html>
