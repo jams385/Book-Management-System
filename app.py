@@ -17,7 +17,12 @@ app.config["SQLALCHEMY_DATABASE_URI"] = database_file
 db = SQLAlchemy(app) 
 
 class Book(db.Model):
+    __tablename__ = "Book Library"
+
     title = db.Column(db.String(80), unique=True, nullable=False, primary_key=True)
+    author = db.Column(db.String(50), nullable=False)
+    publisher = db.Column(db.String(100), nullable=False)
+    publication_date = db.Column(db.String(50), nullable=False)
 
     def __repr__(self):
         return "<Title: {}>".format(self.title)
@@ -26,7 +31,10 @@ class Book(db.Model):
 def home():
     if request.form:
         try:
-            book = Book(title=request.form.get("title"))
+            book = Book(title=request.form.get("title"),
+                        author=request.form.get("author"),
+                        publisher=request.form.get("publisher"),
+                        publication_date=request.form.get("publication_date") )
             db.session.add(book)
             db.session.commit()
         except Exception as e:
