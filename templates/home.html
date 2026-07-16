@@ -1,17 +1,41 @@
 <html>
     <body>
+        <h1>Book Management System</h1>
         <form action="/" method="POST">
 
-            <!-- gets user input -->
-            <input type="text" name="title" placeholder="Input Title" required> 
-            <input type="text" name="author" placeholder="Input Author's Name" required>
-            <input type="text" name="publisher" placeholder="Input Publisher's  Name" required>
-            <input type="text" name="publication_date" placeholder="Input Publication Date" required>
-            <button type="submit"> Submit </button>
+            <table>
+
+                <tr>
+                <!-- gets user input -->
+                    <td><label for="book-title">Title:</label></td>
+                    <td><input type="text" name="title" id="book-title" required></td>
+                </tr>
+
+                <tr>
+                    <td><label for="book-author">Author's Name:</label></td>
+                    <td><input type="text" name="author" id="book-author" required></td>
+                </tr>
+
+                <tr>
+                    <td><label for="book-publisher">Publisher's Name:</label></td>
+                    <td><input type="text" name="publisher" id="book-publisher" required></td>
+                </tr>
+
+                <tr>
+                    <td><label for="date">Publicaition Date:</label></td>
+                    <td><input type="date" name="publication_date" id="date"></td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td><button type="submit"> Submit </button></td>
+                </tr>
+
+            </table>
 
         </form>
 
-        <h1>Books</h1>
+        <h2>Book List</h2>
         <!-- outputs the books using a jinja 'for' loop -->
         {% for book in books %}
         <ul>
