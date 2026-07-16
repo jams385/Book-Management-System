@@ -37,6 +37,7 @@ def home():
                         publication_date=request.form.get("publication_date") )
             db.session.add(book)
             db.session.commit()
+
         except Exception as e:
             print("Failed to add book")
             print(e)
@@ -47,11 +48,26 @@ def home():
 @app.route("/update", methods=["POST"])
 def update():
     try:
-        newtitle = request.form.get("newtitle")
-        oldtitle = request.form.get("oldtitle")
-        book = Book.query.filter_by(title=oldtitle).first()
-        book.title = newtitle
+        # update title
+
+        old_title = request.form.get("old_title")
+        book = Book.query.filter_by(title=old_title).first()
+
+        new_title = request.form.get("new_title")
+        new_author = request.form.get("new_author")
+        new_publisher = request.form.get("new_publisher")
+
+        if new_title is not '':
+            book.title = new_title
+
+        if new_author is not '':
+            book.author = new_author
+        
+        if new_publisher is not '':
+            book.publisher = new_publisher
+        
         db.session.commit()
+
     except Exception as e:
         print("Cannot update book title")
     

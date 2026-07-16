@@ -1,42 +1,36 @@
 <html>
     <body>
         <h1>Book Management System</h1>
+
+        <!-- Creating a Book -->
         <form action="/" method="POST">
-
             <table>
-
                 <tr>
-                <!-- gets user input -->
                     <td><label for="book-title">Title:</label></td>
                     <td><input type="text" name="title" id="book-title" required></td>
                 </tr>
-
                 <tr>
                     <td><label for="book-author">Author's Name:</label></td>
                     <td><input type="text" name="author" id="book-author" required></td>
                 </tr>
-
                 <tr>
                     <td><label for="book-publisher">Publisher's Name:</label></td>
                     <td><input type="text" name="publisher" id="book-publisher" required></td>
                 </tr>
-
                 <tr>
                     <td><label for="date">Publicaition Date:</label></td>
                     <td><input type="date" name="publication_date" id="date"></td>
                 </tr>
-
                 <tr>
                     <td></td>
                     <td><button type="submit"> Submit </button></td>
                 </tr>
-
             </table>
-
         </form>
 
         <h2>Book List</h2>
-        <!-- outputs the books using a jinja 'for' loop -->
+
+        <!-- Books List -->
         {% for book in books %}
         <ul>
                     <li>{{book.title}}
@@ -47,12 +41,20 @@
                         </ul>
                     </li>
         </ul>
+
+            <!-- For Updating -->
             <form method="POST" action="./update">
-                <input type="hidden" value="{{book.title}}" name="oldtitle">
-                <input type="text" name="newtitle">
+                <input type="hidden" value="{{book.title}}" name="old_title">
+
+                <input type="text" name="new_title">
+                <input type="text" name="new_author">
+                <input type="text" name="new_publisher">
+                <input type="date" name="new_publication_date">
+
                 <input type="submit" value="Update">
             </form>
-
+        
+            <!-- For Deleting -->
             <form method="POST" action="./delete">
                 <input type="hidden" value="{{book.title}}" name="title">
                 <input type="submit" value="Delete">
